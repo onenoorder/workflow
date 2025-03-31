@@ -1,0 +1,32 @@
+a = Users.Find("Gerard") 
+print(a)
+
+a.Name = "Gerhard"
+print(a)
+
+if a.Name equals "Gerhard" 
+then 
+    print("he")
+else
+    print("yeah")
+endif
+
+if a.Age > 30
+then 
+    print("Older then 30")
+endif
+
+loop 2
+    loop 2 num
+        print(num)
+    endloop
+    print("wow")
+endloop
+
+
+loop Users.All() currentUser
+    if currentUser.Age > 100
+    then
+        print(currentUser.Name)
+    endif
+endloop
