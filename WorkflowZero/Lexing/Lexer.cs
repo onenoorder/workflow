@@ -22,14 +22,16 @@ public static class Lexer
         Queue<Token> tokenQueue = new();
         string? line = sourceCodeStream.ReadLine();
         int lineIndex = 1;
+
         while (line != null)
         {
             AddLineTokensToQueue(line, lineIndex, tokenQueue);
             line = sourceCodeStream.ReadLine();
             lineIndex++;
         }
+
         sourceCodeStream.Close();
-        tokenQueue.Enqueue(new Token("EOF",TokenType.Eof, lineIndex,0));
+        tokenQueue.Enqueue(new Token("EOF", TokenType.Eof, lineIndex, 0));
         return tokenQueue;
     }
 
@@ -38,33 +40,38 @@ public static class Lexer
         for (int charIndex = 0; charIndex < line.Length; charIndex++)
         {
             char character = line[charIndex];
+
             if (character is ' ')
             {
                 continue;
             }
+
             if (TrySingleCharacterToken(character, lineIndex, charIndex, out Token token))
             {
                 tokenQueue.Enqueue(token);
-            } else
+            }
+            else
             {
                 if (character is '"')
                 {
-                    string? value = GetValue(line, charIndex + 1, ch => ch != '"');
+                    string value = GetValue(line, charIndex + 1, ch => ch != '"');
                     tokenQueue.Enqueue(new Token(value, TokenType.String, lineIndex, charIndex));
                     charIndex+= value.Length + 1;
                 }
                 else if (char.IsDigit(character)){
-                    string? value = GetValue(line, charIndex, char.IsDigit);
+                    string value = GetValue(line, charIndex, char.IsDigit);
                     tokenQueue.Enqueue(new Token(value, TokenType.Number, lineIndex, charIndex));
                     charIndex+= value.Length - 1;
                 }
                 else if (char.IsLetter(character)){
-                    string? value = GetValue(line, charIndex, char.IsLetter);
+                    string value = GetValue(line, charIndex, char.IsLetter);
                     TokenType type = TokenType.Identifier;
+
                     if (Keywords.TryGetValue(value, out TokenType keyword))
                     {
                         type = keyword;
                     }
+
                     tokenQueue.Enqueue(new Token(value, type, lineIndex, charIndex));
                     charIndex+= value.Length - 1;
                 }
@@ -72,14 +79,16 @@ public static class Lexer
         }
     }
 
-    private static string? GetValue(string line, int startIndex, Func<char, bool> condition)
+    private static string GetValue(string line, int startIndex, Func<char, bool> condition)
     {
-        string? value = "";
+        string value = "";
+
         while (startIndex < line.Length && condition(line[startIndex]))
         {
             value += line[startIndex];
             startIndex++;
         }
+
         return value;
     }
 

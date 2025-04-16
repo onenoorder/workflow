@@ -42,6 +42,7 @@ public class Interpreter
     {
         object value = EvaluateExpression(loop.Times);
         string? loopItemIdentifier = loop.LoopItemIdentifier?.Name;
+
         if (value is int numberOfTimes)
         {
             for (int i = 0; i < numberOfTimes; i++)
@@ -50,9 +51,11 @@ public class Interpreter
                 {
                     VariableStorage.StoreVariable(loopItemIdentifier, i );
                 }
+
                 ExecuteProgram(loop.Loop);
             }
-        }else if (value is IList<User> list)
+        }
+        else if (value is IList<User> list)
         {
             foreach (var loopItem in list)
             {
@@ -60,9 +63,11 @@ public class Interpreter
                 {
                     VariableStorage.StoreVariable(loopItemIdentifier, loopItem );
                 }
+
                 ExecuteProgram(loop.Loop);
             }
-        }else
+        }
+        else
         {
             throw new Exception($"Could not loop {value}");
         }
@@ -71,13 +76,14 @@ public class Interpreter
     private void EvaluateVariableAssignment(VariableAssignmentNode variableAssignment)
     {
         object value = EvaluateExpression(variableAssignment.Value);
+
         switch (variableAssignment.Identifier)
         {
             case MemberAccessNode node:
                 AssignMemberVariable(node, value);
                 break;
             case IdentifierNode node:
-                VariableStorage.StoreVariable(node.Name,value);
+                VariableStorage.StoreVariable(node.Name, value);
                 break;
             default:
                 throw new Exception("Could not assign variable.");
@@ -87,6 +93,7 @@ public class Interpreter
     private void AssignMemberVariable(MemberAccessNode memberAccessNode, object value)
     {
         object identifier = EvaluateExpression(memberAccessNode.Identifier);
+
         if (identifier.GetType() == typeof(User))
         {
             PropertyInfo? propertyInfo = typeof(User).GetProperty(memberAccessNode.MemberIdentifier.Name);
@@ -126,6 +133,7 @@ public class Interpreter
     {
         object leftValue = EvaluateExpression(expressionNode.Left);
         object rightValue = EvaluateExpression(expressionNode.Right);
+
         return expressionNode.OperatorString switch
         {
             "equals" => leftValue == rightValue,
@@ -153,10 +161,12 @@ public class Interpreter
     {
         object? returnValue = null;
         object? parameter = usersNode.Parameter != null ? EvaluateExpression(usersNode.Parameter) : null;
+
         if (usersNode.MemberIdentifier.Name == "Find")
         {
             returnValue = UsersActions.Find((string)parameter);
         }
+
         if (usersNode.MemberIdentifier.Name == "All")
         {
             returnValue = UsersActions.All();
@@ -171,6 +181,7 @@ public class Interpreter
     {
         object identifier = EvaluateExpression(memberAccessNode.Identifier);
         object? value;
+
         if (identifier.GetType() == typeof(User))
         {
             PropertyInfo? propertyInfo = typeof(User).GetProperty(memberAccessNode.MemberIdentifier.Name);
@@ -203,6 +214,7 @@ public class Interpreter
     {
         int leftValue = (int)EvaluateExpression(arithmeticExpressionNode.Left);
         int rightValue = (int)EvaluateExpression(arithmeticExpressionNode.Right);
+
         return arithmeticExpressionNode.OperatorString switch
         {
             "+" => leftValue + rightValue,

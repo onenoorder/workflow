@@ -10,6 +10,7 @@ public static class VariableStorage
         {
             return value ?? throw new Exception($"Variable {varName} was null");
         }
+
         throw new Exception($"Unknown variable {varName}");
     }
     

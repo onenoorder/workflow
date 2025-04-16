@@ -14,6 +14,7 @@ public class Parser(StreamReader sourceCodeStream)
     public ProgramNode Parse()
     {
         IList<IStatementNode> statements = [];
+
         while (NotAtEndOfFile())
         {
             statements.Add(ParseStatement());
@@ -30,6 +31,7 @@ public class Parser(StreamReader sourceCodeStream)
     private Token GetNextToken()
     {
         Token token = _tokens.Dequeue();
+
         if (token.Type == TokenType.Eof)
         {
             throw new Exception($"Unexpected EOF at line:{token.LineIndex} char: {token.CharIndex}");
@@ -46,7 +48,9 @@ public class Parser(StreamReader sourceCodeStream)
     private IStatementNode ParseStatement()
     {
         Token currentToken = GetNextToken();
-        if ((PeakNextToken().Type is TokenType.EqualSign || PeakNextToken().Type is TokenType.MemberAccessOperator) &&
+
+        if ((PeakNextToken().Type is TokenType.EqualSign || 
+            PeakNextToken().Type is TokenType.MemberAccessOperator) &&
             currentToken.Type is TokenType.Identifier)
         {
             return ParseVariableAssignment(currentToken);
@@ -65,24 +69,31 @@ public class Parser(StreamReader sourceCodeStream)
     {
         Token nextToken = GetNextToken();
         IExpressionNode times = ParseExpression(nextToken);
+
         if (times is not NumberLiteral and not UsersNode)
         {
             throw new Exception($"Cannot loop {nextToken}");
         }
+
         TokenType nextTokenType = PeakNextToken().Type;
         IdentifierNode? loopItemIdentifier = null;
+
         if (nextTokenType == TokenType.Identifier)
         {
             loopItemIdentifier = new IdentifierNode(GetNextToken().Value);
             nextTokenType = PeakNextToken().Type;
         }
+
         IList<IStatementNode> loopBlock = [];
+
         while (nextTokenType != TokenType.EndLoop)
         {
             loopBlock.Add(ParseStatement());
             nextTokenType = PeakNextToken().Type;
         }
+
         ExpectToken(TokenType.EndLoop);
+
         return new LoopNode(times,  new ProgramNode(loopBlock), loopItemIdentifier);
     }
 
@@ -90,6 +101,7 @@ public class Parser(StreamReader sourceCodeStream)
     {
         Token nextToken = GetNextToken();
         IExpressionNode ifCondition = ParseExpression(nextToken);
+
         if (ifCondition is not BooleanExpressionNode)
         {
             throw new Exception($"Expected boolean value at line {nextToken.LineIndex}");
@@ -98,6 +110,7 @@ public class Parser(StreamReader sourceCodeStream)
         ProgramNode thenNode = ParseThenBlock();
         ProgramNode? elseNode = ParseElseBlock();
         ExpectToken(TokenType.EndIf);
+
         return new IfThenElseNode((BooleanExpressionNode)ifCondition, thenNode, elseNode);
     }
 
@@ -106,6 +119,7 @@ public class Parser(StreamReader sourceCodeStream)
         ExpectToken(TokenType.Then);
         TokenType nextTokenType = PeakNextToken().Type;
         IList<IStatementNode> then = [];
+
         while (nextTokenType != TokenType.Else && nextTokenType != TokenType.EndIf)
         {
             then.Add(ParseStatement());
@@ -118,10 +132,12 @@ public class Parser(StreamReader sourceCodeStream)
     private ProgramNode? ParseElseBlock()
     {
         ProgramNode? elseNode = null;
+
         if (PeakNextToken().Type == TokenType.Else)
         {
             ExpectToken(TokenType.Else);
             IList<IStatementNode> elseBlock = [];
+
             while (PeakNextToken().Type != TokenType.EndIf)
             {
                 elseBlock.Add(ParseStatement());
@@ -139,12 +155,14 @@ public class Parser(StreamReader sourceCodeStream)
         IExpressionNode returnNode = ParseIdentifierExpression(token);
         ExpectToken(TokenType.EqualSign);
         IExpressionNode value = ParseExpression(GetNextToken());
+
         return new VariableAssignmentNode(returnNode, value);
     }
 
     private IExpressionNode ParseExpression(Token token)
     {
         IExpressionNode expressionNode = ParsePrimaryExpression(token);
+
         return PeakNextToken().Type switch
         {
             TokenType.ArithmeticOperator => ParseArithmeticOperatorExpression(expressionNode),
@@ -170,19 +188,25 @@ public class Parser(StreamReader sourceCodeStream)
     private IExpressionNode ParseIdentifierExpression(Token token)
     {
         IdentifierNode identifier = new(token.Value);
-        return PeakNextToken().Type is not TokenType.MemberAccessOperator ? identifier : ParseMemberAccess(identifier);
+
+        return PeakNextToken().Type is not TokenType.MemberAccessOperator ? 
+            identifier : ParseMemberAccess(identifier);
     }
 
     private IExpressionNode ParseMemberAccess(IdentifierNode identifierNode)
     {
         ExpectToken(TokenType.MemberAccessOperator);
         Token memberIdentifier = GetNextToken();
+
         if (memberIdentifier.Type is not TokenType.Identifier)
             throw new Exception(
                 $"Expected {TokenType.Identifier.ToString()} at line {memberIdentifier.LineIndex} but found {memberIdentifier.Type.ToString()}");
+
         IdentifierNode memberNode = new(memberIdentifier.Value);
+
         if (PeakNextToken().Type is not TokenType.OpenParenthesis)
             return new MemberAccessNode(identifierNode, memberNode);
+
         return new UsersNode(memberNode, ParseArgument());
     }
 
@@ -202,6 +226,7 @@ public class Parser(StreamReader sourceCodeStream)
     private IExpressionNode ParseMultiplicativeExpression(Token token)
     {
         IExpressionNode leftNode = ParsePrimaryExpression(token);
+
         while (PeakNextToken().Value is "/" or "*")
         {
             string operatorValue = GetNextToken().Value;
@@ -217,6 +242,7 @@ public class Parser(StreamReader sourceCodeStream)
     {
         string operatorValue = GetNextToken().Value;
         IExpressionNode rightNode = ParsePrimaryExpression(GetNextToken());
+
         return new BooleanExpressionNode(operatorValue, leftNode, rightNode);
     }
 
@@ -225,17 +251,21 @@ public class Parser(StreamReader sourceCodeStream)
     {
         ExpectToken(TokenType.OpenParenthesis);
         IExpressionNode? argument = null;
+
         if (PeakNextToken().Type != TokenType.CloseParenthesis)
         {
             argument = ParseExpression(GetNextToken());
         }
+
         ExpectToken(TokenType.CloseParenthesis);
+
         return argument;
     }
 
     private void ExpectToken(TokenType type)
     {
         Token nextToken = GetNextToken();
+
         if (nextToken.Type != type)
             throw new Exception(
                 $"Expected {type.ToString()} at line {nextToken.LineIndex} but found {nextToken.Type.ToString()}");
