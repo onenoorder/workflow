@@ -17,7 +17,7 @@ public static class Lexer
         { "endloop", TokenType.EndLoop },
     };
 
-    public static Queue<Token> Tokenize(StreamReader sourceCodeStream)
+    public static TokenStream Tokenize(StreamReader sourceCodeStream)
     {
         Queue<Token> tokenQueue = new();
         string? line = sourceCodeStream.ReadLine();
@@ -32,7 +32,7 @@ public static class Lexer
 
         sourceCodeStream.Close();
         tokenQueue.Enqueue(new Token("EOF", TokenType.Eof, lineIndex, 0));
-        return tokenQueue;
+        return new TokenStream(tokenQueue);
     }
 
     private static void AddLineTokensToQueue(string line, int lineIndex, Queue<Token> tokenQueue)

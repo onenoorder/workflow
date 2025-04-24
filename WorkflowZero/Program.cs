@@ -1,10 +1,21 @@
-﻿using WorkflowZero.AbstractSyntaxTree.Nodes;
-using WorkflowZero.Interpreting;
-using WorkflowZero.Parsing;
+﻿using WorkflowZero.Parsing;
 
 
 /*
  * Example One
+ */
+{
+    Console.WriteLine();
+    Console.WriteLine("Example 1:");
+
+    StreamReader stream = new("TestCode/helloworld.txt");
+    Parser parser = new(stream);
+    ProgramNode program = parser.Parse();
+    program.Execute();
+}
+
+/*
+ * Example two
  */
 {
     StreamReader stream = new("TestCode/exampeOnePartOne.txt");
@@ -15,26 +26,25 @@ using WorkflowZero.Parsing;
     Parser parser2 = new(stream2);
     ProgramNode program2 = parser2.Parse();
 
-    Interpreter interpreter = new();
-
-    Console.WriteLine("Program 1:");
-    interpreter.ExecuteProgram(program);
+    Console.WriteLine();
+    Console.WriteLine("Example2:");
+    Console.WriteLine("Part 1:");
+    program.Execute();
 
     Console.WriteLine();
-    Console.WriteLine("Program 2:");
-    interpreter.ExecuteProgram(program2);
+    Console.WriteLine("Part 2:");
+    program2.Execute();
 }
 
 /*
- * Example two
+ * Example three
  */
 {
     Console.WriteLine();
-    Console.WriteLine("Example 2:");
+    Console.WriteLine("Example 3:");
 
     StreamReader stream = new("TestCode/exampleTwo.txt");
     Parser parser = new(stream);
     ProgramNode program = parser.Parse();
-    Interpreter interpreter = new();
-    interpreter.ExecuteProgram(program);
+    program.Execute();
 }

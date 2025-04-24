@@ -1,0 +1,110 @@
+using WorkflowZero.Lexing;
+using WorkflowZero.Parsing.Expressions.Interfaces;
+using WorkflowZero.Parsing.Expressions.Nodes.BinaryExpressions;
+using WorkflowZero.Parsing.Expressions.Nodes.Expressions;
+
+namespace WorkflowZero.Parsing.Expressions;
+
+public static class ExpressionParser
+{
+    public static IExpressionNode ParseExpression(Token token, TokenStream stream)
+    {
+        IExpressionNode expressionNode = ParsePrimaryExpression(token, stream);
+
+        return stream.Peek().Type switch
+        {
+            TokenType.ArithmeticOperator => ParseArithmeticOperatorExpression(expressionNode, stream),
+            TokenType.ComparisonOperator => ParseComparisonOperatorExpression(expressionNode, stream),
+            _ => expressionNode
+        };
+    }
+
+    public static IExpressionNode? ParseArgument(TokenStream stream)
+    {
+        stream.Expect(TokenType.OpenParenthesis);
+        IExpressionNode? argument = null;
+
+        if (stream.Peek().Type != TokenType.CloseParenthesis)
+        {
+            argument = ParseExpression(stream.Eat(), stream);
+        }
+
+        stream.Expect(TokenType.CloseParenthesis);
+
+        return argument;
+    }
+
+    public static IExpressionNode ParseIdentifierExpression(Token token, TokenStream stream)
+    {
+        IdentifierNode identifier = new(token.Value);
+
+        return stream.Peek().Type is not TokenType.MemberAccessOperator
+            ? identifier
+            : ParseMemberAccess(identifier, stream);
+    }
+
+    private static IExpressionNode ParseArithmeticOperatorExpression(IExpressionNode leftNode, TokenStream stream)
+    {
+        while (stream.Peek().Value is "+" or "-")
+        {
+            string operatorValue = stream.Eat().Value;
+            IExpressionNode rightNode = ParseMultiplicativeExpression(stream.Eat(), stream);
+            leftNode = new ArithmeticExpressionNode(operatorValue, leftNode, rightNode);
+        }
+
+        return leftNode;
+    }
+
+
+    private static IExpressionNode ParseMultiplicativeExpression(Token token, TokenStream stream)
+    {
+        IExpressionNode leftNode = ParsePrimaryExpression(token, stream);
+
+        while (stream.Peek().Value is "/" or "*")
+        {
+            string operatorValue = stream.Eat().Value;
+            IExpressionNode rightNode = ParsePrimaryExpression(stream.Eat(), stream);
+            leftNode = new ArithmeticExpressionNode(operatorValue, leftNode, rightNode);
+        }
+
+        return leftNode;
+    }
+
+    private static IExpressionNode ParseComparisonOperatorExpression(IExpressionNode leftNode, TokenStream stream)
+    {
+        string operatorValue = stream.Eat().Value;
+        IExpressionNode rightNode = ParsePrimaryExpression(stream.Eat(), stream);
+
+        return new BooleanExpressionNode(operatorValue, leftNode, rightNode);
+    }
+
+
+    private static IExpressionNode ParsePrimaryExpression(Token token, TokenStream stream)
+    {
+        return token.Type switch
+        {
+            TokenType.String => new StringLiteralNode(token.Value),
+            TokenType.Number => new NumberLiteral(int.Parse(token.Value)),
+            TokenType.Identifier => ParseIdentifierExpression(token, stream),
+            TokenType.Bool => new BooleanLiteralNode(token.Value == "true"),
+            _ => throw new Exception($"Unexpected {token.Value} at line {token.LineIndex}")
+        };
+    }
+
+    private static IExpressionNode ParseMemberAccess(IdentifierNode identifierNode, TokenStream stream)
+    {
+        stream.Expect(TokenType.MemberAccessOperator);
+        Token memberIdentifier = stream.Eat();
+
+        if (memberIdentifier.Type is not TokenType.Identifier)
+            throw new Exception(
+                $"Expected {TokenType.Identifier.ToString()} at line {memberIdentifier.LineIndex} but found {memberIdentifier.Type.ToString()}");
+
+        IdentifierNode memberNode = new(memberIdentifier.Value);
+
+        if (stream.Peek().Type is not TokenType.OpenParenthesis)
+            return new MemberAccessNode(identifierNode, memberNode);
+
+        return new UsersNode(memberNode, ParseArgument(stream));
+    }
+}

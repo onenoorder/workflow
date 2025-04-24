@@ -1,12 +1,12 @@
-using WorkflowZero.AbstractSyntaxTree.Nodes;
-using WorkflowZero.AbstractSyntaxTree.Nodes.Interfaces;
 using WorkflowZero.Lexing;
+using WorkflowZero.Parsing.Statements;
+using WorkflowZero.Parsing.Statements.Interfaces;
 
 namespace WorkflowZero.Parsing;
 
 public class Parser(StreamReader sourceCodeStream)
 {
-    private readonly TokenStream _stream = new(Lexer.Tokenize(sourceCodeStream));
+    private readonly TokenStream _stream = Lexer.Tokenize(sourceCodeStream);
 
     public ProgramNode Parse()
     {

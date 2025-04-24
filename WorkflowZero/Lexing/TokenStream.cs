@@ -27,8 +27,8 @@ public class TokenStream
         current = tokens.Dequeue();
         return eatenToken;
     }
-    
-    
+
+
     public void Expect(TokenType type)
     {
         Token nextToken = Eat();
