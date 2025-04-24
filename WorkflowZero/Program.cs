@@ -8,11 +8,11 @@ using WorkflowZero.Parsing;
  */
 {
     StreamReader stream = new("TestCode/exampeOnePartOne.txt");
-    Parser parser = new(stream);
+    ParserNew parser = new(stream);
     ProgramNode program = parser.Parse();
 
     StreamReader stream2 = new("TestCode/exampleOnePartTwo.txt");
-    Parser parser2 = new(stream2);
+    ParserNew parser2 = new(stream2);
     ProgramNode program2 = parser2.Parse();
 
     Interpreter interpreter = new();
@@ -33,7 +33,7 @@ using WorkflowZero.Parsing;
     Console.WriteLine("Example 2:");
 
     StreamReader stream = new("TestCode/exampleTwo.txt");
-    Parser parser = new(stream);
+    ParserNew parser = new(stream);
     ProgramNode program = parser.Parse();
     Interpreter interpreter = new();
     interpreter.ExecuteProgram(program);

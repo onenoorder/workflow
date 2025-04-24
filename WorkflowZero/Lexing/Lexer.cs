@@ -56,14 +56,16 @@ public static class Lexer
                 {
                     string value = GetValue(line, charIndex + 1, ch => ch != '"');
                     tokenQueue.Enqueue(new Token(value, TokenType.String, lineIndex, charIndex));
-                    charIndex+= value.Length + 1;
+                    charIndex += value.Length + 1;
                 }
-                else if (char.IsDigit(character)){
+                else if (char.IsDigit(character))
+                {
                     string value = GetValue(line, charIndex, char.IsDigit);
                     tokenQueue.Enqueue(new Token(value, TokenType.Number, lineIndex, charIndex));
-                    charIndex+= value.Length - 1;
+                    charIndex += value.Length - 1;
                 }
-                else if (char.IsLetter(character)){
+                else if (char.IsLetter(character))
+                {
                     string value = GetValue(line, charIndex, char.IsLetter);
                     TokenType type = TokenType.Identifier;
 
@@ -73,7 +75,7 @@ public static class Lexer
                     }
 
                     tokenQueue.Enqueue(new Token(value, type, lineIndex, charIndex));
-                    charIndex+= value.Length - 1;
+                    charIndex += value.Length - 1;
                 }
             }
         }
@@ -95,38 +97,38 @@ public static class Lexer
 
     private static bool TrySingleCharacterToken(char character, int lineIndex, int charIndex, out Token token)
     {
-        token = null;
+        token = null!;
         bool result = false;
         switch (character)
         {
             case '(':
                 token = new Token(character.ToString(), TokenType.OpenParenthesis, lineIndex, charIndex);
-                result =  true;
+                result = true;
                 break;
             case ')':
                 token = new Token(character.ToString(), TokenType.CloseParenthesis, lineIndex, charIndex);
-                result =  true;
+                result = true;
                 break;
             case '.':
                 token = new Token(character.ToString(), TokenType.MemberAccessOperator, lineIndex, charIndex);
-                result =  true;
+                result = true;
                 break;
             case '=':
                 token = new Token(character.ToString(), TokenType.EqualSign, lineIndex, charIndex);
-                result =  true;
+                result = true;
                 break;
             case '>':
             case '<':
                 token = new Token(character.ToString(), TokenType.ComparisonOperator, lineIndex, charIndex);
-                result =  true;
+                result = true;
                 break;
             case '+':
             case '-':
                 token = new Token(character.ToString(), TokenType.ArithmeticOperator, lineIndex, charIndex);
-                result =  true;
+                result = true;
                 break;
         }
+
         return result;
     }
-    
 }
