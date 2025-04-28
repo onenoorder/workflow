@@ -1,5 +1,6 @@
 using WorkflowZero.Lexing;
 using WorkflowZero.Parsing.Expressions;
+using WorkflowZero.Parsing.Expressions.Interfaces;
 using WorkflowZero.Parsing.Expressions.Nodes.Expressions;
 using WorkflowZero.Parsing.Statements.Interfaces;
 
@@ -15,6 +16,7 @@ public class PrintRule : IParserRule
     public IStatementNode Parse(TokenStream stream)
     {
         stream.Eat();
-        return new PrintNode(ExpressionParser.ParseArgument(stream) ?? new StringLiteralNode(""));
+        IList<IExpressionNode> arguments = ExpressionParser.ParseArguments(stream);
+        return new PrintNode(arguments.Count == 1 ? arguments[0] : new StringLiteralNode(""));
     }
 }

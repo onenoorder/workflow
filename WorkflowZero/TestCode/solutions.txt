@@ -1,0 +1,22 @@
+newUser = Users.Add("Alice", "Bobbinson", 34) 
+print(newUser.Name)
+
+print("Older then 30:")
+loop Users.All() currentUser
+    if currentUser.Age > 30
+    then
+        print(currentUser)
+    endif
+endloop
+
+loop Users.All() currentUser
+    currentUser.Name = currentUser.Name ~ "je"
+endloop
+
+loop Users.All() currentUser
+    currentUser.Age = currentUser.Age / 2
+endloop
+
+loop Users.All() currentUser
+    print(currentUser)
+endloop

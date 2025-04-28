@@ -19,5 +19,7 @@ public enum TokenType
     MemberAccessOperator,
     Loop,
     EndLoop,
+    StringConcatenation,
+    Comma,
     Eof
 }

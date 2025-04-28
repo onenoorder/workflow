@@ -124,7 +124,13 @@ public static class Lexer
                 break;
             case '+':
             case '-':
+            case '/':
+            case '*':
                 token = new Token(character.ToString(), TokenType.ArithmeticOperator, lineIndex, charIndex);
+                result = true;
+                break;
+            case '~':
+                token = new Token(character.ToString(), TokenType.StringConcatenation, lineIndex, charIndex);
                 result = true;
                 break;
         }

@@ -15,23 +15,31 @@ public static class ExpressionParser
         {
             TokenType.ArithmeticOperator => ParseArithmeticOperatorExpression(expressionNode, stream),
             TokenType.ComparisonOperator => ParseComparisonOperatorExpression(expressionNode, stream),
+            TokenType.StringConcatenation => ParseStringConcatenation(expressionNode, stream),
             _ => expressionNode
         };
     }
 
-    public static IExpressionNode? ParseArgument(TokenStream stream)
+    public static IList<IExpressionNode> ParseArguments(TokenStream stream)
     {
         stream.Expect(TokenType.OpenParenthesis);
-        IExpressionNode? argument = null;
+        IList<IExpressionNode> arguments = [];
 
         if (stream.Peek().Type != TokenType.CloseParenthesis)
         {
-            argument = ParseExpression(stream.Eat(), stream);
+            while (stream.Peek().Type != TokenType.CloseParenthesis)
+            {
+                arguments.Add(ParseExpression(stream.Eat(), stream));
+                if (stream.Peek().Type == TokenType.Comma)
+                {
+                    stream.Eat();
+                }
+            }
         }
 
         stream.Expect(TokenType.CloseParenthesis);
 
-        return argument;
+        return arguments;
     }
 
     public static IExpressionNode ParseIdentifierExpression(Token token, TokenStream stream)
@@ -45,7 +53,7 @@ public static class ExpressionParser
 
     private static IExpressionNode ParseArithmeticOperatorExpression(IExpressionNode leftNode, TokenStream stream)
     {
-        while (stream.Peek().Value is "+" or "-")
+        while (stream.Peek().Value is "+" or "-" or "/" or "*")
         {
             string operatorValue = stream.Eat().Value;
             IExpressionNode rightNode = ParseMultiplicativeExpression(stream.Eat(), stream);
@@ -78,6 +86,18 @@ public static class ExpressionParser
         return new BooleanExpressionNode(operatorValue, leftNode, rightNode);
     }
 
+    private static IExpressionNode ParseStringConcatenation(IExpressionNode expressionNode, TokenStream stream)
+    {
+        IList<IExpressionNode> strings = [expressionNode];
+        while (stream.Peek().Type is TokenType.StringConcatenation)
+        {
+            stream.Eat();
+            strings.Add(ParseExpression(stream.Eat(), stream));
+
+        }
+        return new StringConcatenationNode(strings);
+    }
+
 
     private static IExpressionNode ParsePrimaryExpression(Token token, TokenStream stream)
     {
@@ -104,7 +124,6 @@ public static class ExpressionParser
 
         if (stream.Peek().Type is not TokenType.OpenParenthesis)
             return new MemberAccessNode(identifierNode, memberNode);
-
-        return new UsersNode(memberNode, ParseArgument(stream));
+        return new UsersNode(memberNode, ParseArguments(stream));
     }
 }

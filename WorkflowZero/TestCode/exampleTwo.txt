@@ -1,4 +1,4 @@
-a = Users.Find("Gerard") 
+a = Users.Find("Gerard Kroes") 
 print(a)
 
 a.Name = "Gerhard"

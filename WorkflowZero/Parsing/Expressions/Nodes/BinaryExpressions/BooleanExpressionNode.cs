@@ -16,7 +16,7 @@ public class BooleanExpressionNode(string operatorString, IExpressionNode left, 
 
         return OperatorString switch
         {
-            "equals" => leftValue == rightValue,
+            "equals" => leftValue.Equals(rightValue),
             ">" => (int)leftValue > (int)rightValue,
             "<" => (int)leftValue < (int)rightValue,
             _ => throw new Exception($"Unexpected value while evaluating boolean expression")

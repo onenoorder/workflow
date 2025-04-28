@@ -1,3 +1,3 @@
 namespace WorkflowZero.Helpers.Users;
 
-public record User(string Name, int Age);
+public record User(string Name, string Surname, int Age);
