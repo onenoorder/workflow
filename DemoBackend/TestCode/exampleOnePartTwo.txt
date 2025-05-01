@@ -1,0 +1,6 @@
+text = "Previous testValue was:"
+print(text)
+print(testValue)
+testValue = testValue - 1
+print("new test value:")
+print(testValue)

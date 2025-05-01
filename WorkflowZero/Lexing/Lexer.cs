@@ -13,6 +13,7 @@ public static class Lexer
         { "true", TokenType.Bool },
         { "false", TokenType.Bool },
         { "Users", TokenType.Identifier },
+        { "Clients", TokenType.Identifier },
         { "loop", TokenType.Loop },
         { "endloop", TokenType.EndLoop },
     };

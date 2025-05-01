@@ -124,6 +124,10 @@ public static class ExpressionParser
 
         if (stream.Peek().Type is not TokenType.OpenParenthesis)
             return new MemberAccessNode(identifierNode, memberNode);
+        if (identifierNode.Name.Equals("Clients"))
+        {
+            return new ClientsNode(memberNode, ParseArguments(stream));
+        }
         return new UsersNode(memberNode, ParseArguments(stream));
     }
 }

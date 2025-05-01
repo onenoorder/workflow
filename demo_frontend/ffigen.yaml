@@ -1,0 +1,7 @@
+name: WorkflowBindings
+description: Bindings to call workflow backend
+output: lib/workflow_bindings.dart
+
+headers:
+  entry-points:
+    - workflow.h
