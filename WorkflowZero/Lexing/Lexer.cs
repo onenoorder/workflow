@@ -95,7 +95,6 @@ public static class Lexer
         return value;
     }
 
-
     private static bool TrySingleCharacterToken(char character, int lineIndex, int charIndex, out Token token)
     {
         token = null!;
@@ -139,3 +138,4 @@ public static class Lexer
         return result;
     }
 }
+
