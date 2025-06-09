@@ -104,6 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -127,13 +128,51 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Lexer.cpp" />
-    <ClCompile Include="Parser.cpp" />
-    <ClCompile Include="ProgramNode.cpp" />
-    <ClCompile Include="Token.cpp" />
-    <ClCompile Include="TokenStream.cpp" />
-    <ClCompile Include="TokenType.cpp" />
+    <ClCompile Include="Lexing\Lexer.cpp" />
+    <ClCompile Include="Lexing\Token.cpp" />
+    <ClCompile Include="Lexing\TokenStream.cpp" />
+    <ClCompile Include="Parsing\Expressions\ExpressionParser.cpp" />
+    <ClCompile Include="Parsing\Expressions\Nodes\BinaryExpressions\ArithmeticExpressionNode.cpp" />
+    <ClCompile Include="Parsing\Expressions\Nodes\BinaryExpressions\BooleanExpressionNode.cpp" />
+    <ClCompile Include="Parsing\Expressions\Nodes\Expressions\BooleanLiteralNode.cpp" />
+    <ClCompile Include="Parsing\Expressions\Nodes\Expressions\IdentifierNode.cpp" />
+    <ClCompile Include="Parsing\Expressions\Nodes\Expressions\NumberLiteralNode.cpp" />
+    <ClCompile Include="Parsing\Expressions\Nodes\Expressions\StringConcatenationNode.cpp" />
+    <ClCompile Include="Parsing\Expressions\Nodes\Expressions\StringLiteralNode.cpp" />
+    <ClCompile Include="Parsing\Parser.cpp" />
+    <ClCompile Include="Parsing\ProgramNode.cpp" />
+    <ClCompile Include="Parsing\Statements\IfThenElse\IfThenElseNode.cpp" />
+    <ClCompile Include="Parsing\Statements\IfThenElse\IfThenElseRule.cpp" />
+    <ClCompile Include="Parsing\Statements\Print\PrintNode.cpp" />
+    <ClCompile Include="Parsing\Statements\Print\PrintRule.cpp" />
+    <ClCompile Include="Parsing\Statements\StatementParser.cpp" />
     <ClCompile Include="WorkflowsTrainingCPlus.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Lexing\Lexer.h" />
+    <ClInclude Include="Lexing\Token.h" />
+    <ClInclude Include="Lexing\TokenStream.h" />
+    <ClInclude Include="Lexing\TokenType.h" />
+    <ClInclude Include="Parsing\Expressions\ExpressionParser.h" />
+    <ClInclude Include="Parsing\Expressions\Interfaces\IBinaryExpressionNode.h" />
+    <ClInclude Include="Parsing\Expressions\Interfaces\IExpressionNode.h" />
+    <ClInclude Include="Parsing\Expressions\Nodes\BinaryExpressions\ArithmeticExpressionNode.h" />
+    <ClInclude Include="Parsing\Expressions\Nodes\BinaryExpressions\BooleanExpressionNode.h" />
+    <ClInclude Include="Parsing\Expressions\Nodes\Expressions\BooleanLiteralNode.h" />
+    <ClInclude Include="Parsing\Expressions\Nodes\Expressions\IdentifierNode.h" />
+    <ClInclude Include="Parsing\Expressions\Nodes\Expressions\NumberLiteralNode.h" />
+    <ClInclude Include="Parsing\Expressions\Nodes\Expressions\StringConcatenationNode.h" />
+    <ClInclude Include="Parsing\Expressions\Nodes\Expressions\StringLiteralNode.h" />
+    <ClInclude Include="Parsing\Interfaces\IAstNode.h" />
+    <ClInclude Include="Parsing\Parser.h" />
+    <ClInclude Include="Parsing\ProgramNode.h" />
+    <ClInclude Include="Parsing\Statements\IfThenElse\IfThenElseNode.h" />
+    <ClInclude Include="Parsing\Statements\IfThenElse\IfThenElseRule.h" />
+    <ClInclude Include="Parsing\Statements\Interfaces\IParserRule.h" />
+    <ClInclude Include="Parsing\Statements\Interfaces\IStatementNode.h" />
+    <ClInclude Include="Parsing\Statements\Print\PrintNode.h" />
+    <ClInclude Include="Parsing\Statements\Print\PrintRule.h" />
+    <ClInclude Include="Parsing\Statements\StatementParser.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

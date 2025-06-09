@@ -19,28 +19,201 @@
     <Filter Include="Source Files\Parsing">
       <UniqueIdentifier>{c5f2a0de-b915-4167-9bb5-5dfaf6e3ed10}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Lexing">
+      <UniqueIdentifier>{4886c64e-505c-43a7-a387-31c49c171151}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Parsing">
+      <UniqueIdentifier>{68e78af6-fb8d-4077-a126-ff2f3246bc98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Parsing\Statements">
+      <UniqueIdentifier>{0c6a16ed-d039-4758-9bcb-49b09a65006f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Parsing\Statements">
+      <UniqueIdentifier>{dcf1ad26-2153-4635-8974-dd8d03b05ded}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Parsing\Interfaces">
+      <UniqueIdentifier>{07c24d95-71e0-443d-ae1a-d391a35a3d2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Parsing\Statements\Interfaces">
+      <UniqueIdentifier>{df437d04-8691-46b3-acaf-67a8623ebe98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Parsing\Statements\IfThenElse">
+      <UniqueIdentifier>{d34dede1-6f50-450f-981b-9d0fc63e860f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Parsing\Statements\IfThenElse">
+      <UniqueIdentifier>{f038bfff-d365-4a58-9094-f171434e7855}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Parsing\Expressions">
+      <UniqueIdentifier>{6d9808b5-ef89-41af-8da1-4cc19623acb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Parsing\Expressions\Nodes">
+      <UniqueIdentifier>{57074d86-afa5-4f2b-81d9-06b568a5dd8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Parsing\Expressions\Nodes\BinaryExpressions">
+      <UniqueIdentifier>{cab93f4a-77ef-4240-8df4-c61ff94b0c7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Parsing\Expressions">
+      <UniqueIdentifier>{a36d14ef-96bc-44c4-ac1b-228ce5f48c1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Parsing\Expressions\Nodes">
+      <UniqueIdentifier>{99728795-03a8-4728-b549-d7364384209f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Parsing\Expressions\Nodes\BinaryExpressions">
+      <UniqueIdentifier>{bdf83b0f-86c0-4ce9-915b-266569388782}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Parsing\Expressions\Interfaces">
+      <UniqueIdentifier>{d35c5cc4-ffe1-4348-84b2-269eb52e7b05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Parsing\Expressions\Nodes\Expressions">
+      <UniqueIdentifier>{99777ddd-9a5e-41b3-962b-e567f5c4d294}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Parsing\Expressions\Nodes\Expressions">
+      <UniqueIdentifier>{6f2a54d4-ac9a-42d5-a9f0-c0de3374c860}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Helpers">
+      <UniqueIdentifier>{3e64add7-2a83-4587-b824-edacac513efb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Helpers\Storage">
+      <UniqueIdentifier>{a4867d7e-f501-4d8f-8870-d25f1fd969c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Parsing\Statements\Print">
+      <UniqueIdentifier>{7a4bee38-55b4-4664-9bbd-bddb44cb6db2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Parsing\Statements\Print">
+      <UniqueIdentifier>{e54d13f3-87e9-4b1a-962f-85d368bc9b0e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WorkflowsTrainingCPlus.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Lexer.cpp">
+    <ClCompile Include="Lexing\Lexer.cpp">
       <Filter>Source Files\Lexing</Filter>
     </ClCompile>
-    <ClCompile Include="Token.cpp">
+    <ClCompile Include="Lexing\Token.cpp">
       <Filter>Source Files\Lexing</Filter>
     </ClCompile>
-    <ClCompile Include="TokenType.cpp">
+    <ClCompile Include="Lexing\TokenStream.cpp">
       <Filter>Source Files\Lexing</Filter>
     </ClCompile>
-    <ClCompile Include="TokenStream.cpp">
-      <Filter>Source Files\Lexing</Filter>
+    <ClCompile Include="Parsing\Statements\StatementParser.cpp">
+      <Filter>Source Files\Parsing\Statements</Filter>
     </ClCompile>
-    <ClCompile Include="Parser.cpp">
+    <ClCompile Include="Parsing\Parser.cpp">
       <Filter>Source Files\Parsing</Filter>
     </ClCompile>
-    <ClCompile Include="ProgramNode.cpp">
+    <ClCompile Include="Parsing\ProgramNode.cpp">
       <Filter>Source Files\Parsing</Filter>
     </ClCompile>
+    <ClCompile Include="Parsing\Statements\IfThenElse\IfThenElseNode.cpp">
+      <Filter>Source Files\Parsing\Statements\IfThenElse</Filter>
+    </ClCompile>
+    <ClCompile Include="Parsing\Statements\IfThenElse\IfThenElseRule.cpp">
+      <Filter>Source Files\Parsing\Statements\IfThenElse</Filter>
+    </ClCompile>
+    <ClCompile Include="Parsing\Expressions\Nodes\BinaryExpressions\BooleanExpressionNode.cpp">
+      <Filter>Source Files\Parsing\Expressions\Nodes\BinaryExpressions</Filter>
+    </ClCompile>
+    <ClCompile Include="Parsing\Expressions\Nodes\BinaryExpressions\ArithmeticExpressionNode.cpp">
+      <Filter>Source Files\Parsing\Expressions\Nodes\BinaryExpressions</Filter>
+    </ClCompile>
+    <ClCompile Include="Parsing\Expressions\ExpressionParser.cpp">
+      <Filter>Source Files\Parsing\Expressions</Filter>
+    </ClCompile>
+    <ClCompile Include="Parsing\Expressions\Nodes\Expressions\BooleanLiteralNode.cpp">
+      <Filter>Source Files\Parsing\Expressions\Nodes\Expressions</Filter>
+    </ClCompile>
+    <ClCompile Include="Parsing\Expressions\Nodes\Expressions\IdentifierNode.cpp">
+      <Filter>Source Files\Parsing\Expressions\Nodes\Expressions</Filter>
+    </ClCompile>
+    <ClCompile Include="Parsing\Expressions\Nodes\Expressions\NumberLiteralNode.cpp">
+      <Filter>Source Files\Parsing\Expressions\Nodes\Expressions</Filter>
+    </ClCompile>
+    <ClCompile Include="Parsing\Expressions\Nodes\Expressions\StringConcatenationNode.cpp">
+      <Filter>Source Files\Parsing\Expressions\Nodes\Expressions</Filter>
+    </ClCompile>
+    <ClCompile Include="Parsing\Expressions\Nodes\Expressions\StringLiteralNode.cpp">
+      <Filter>Source Files\Parsing\Expressions\Nodes\Expressions</Filter>
+    </ClCompile>
+    <ClCompile Include="Parsing\Statements\Print\PrintNode.cpp">
+      <Filter>Source Files\Parsing\Statements\Print</Filter>
+    </ClCompile>
+    <ClCompile Include="Parsing\Statements\Print\PrintRule.cpp">
+      <Filter>Source Files\Parsing\Statements\Print</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Lexing\TokenType.h">
+      <Filter>Header Files\Lexing</Filter>
+    </ClInclude>
+    <ClInclude Include="Lexing\Lexer.h">
+      <Filter>Header Files\Lexing</Filter>
+    </ClInclude>
+    <ClInclude Include="Lexing\Token.h">
+      <Filter>Header Files\Lexing</Filter>
+    </ClInclude>
+    <ClInclude Include="Lexing\TokenStream.h">
+      <Filter>Header Files\Lexing</Filter>
+    </ClInclude>
+    <ClInclude Include="Parsing\Parser.h">
+      <Filter>Header Files\Parsing</Filter>
+    </ClInclude>
+    <ClInclude Include="Parsing\ProgramNode.h">
+      <Filter>Header Files\Parsing</Filter>
+    </ClInclude>
+    <ClInclude Include="Parsing\Statements\StatementParser.h">
+      <Filter>Header Files\Parsing\Statements</Filter>
+    </ClInclude>
+    <ClInclude Include="Parsing\Interfaces\IAstNode.h">
+      <Filter>Header Files\Parsing\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Parsing\Statements\Interfaces\IParserRule.h">
+      <Filter>Header Files\Parsing\Statements\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Parsing\Statements\Interfaces\IStatementNode.h">
+      <Filter>Header Files\Parsing\Statements\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Parsing\Statements\IfThenElse\IfThenElseRule.h">
+      <Filter>Header Files\Parsing\Statements\IfThenElse</Filter>
+    </ClInclude>
+    <ClInclude Include="Parsing\Statements\IfThenElse\IfThenElseNode.h">
+      <Filter>Header Files\Parsing\Statements\IfThenElse</Filter>
+    </ClInclude>
+    <ClInclude Include="Parsing\Expressions\Nodes\BinaryExpressions\ArithmeticExpressionNode.h">
+      <Filter>Header Files\Parsing\Expressions\Nodes\BinaryExpressions</Filter>
+    </ClInclude>
+    <ClInclude Include="Parsing\Expressions\Nodes\BinaryExpressions\BooleanExpressionNode.h">
+      <Filter>Header Files\Parsing\Expressions\Nodes\BinaryExpressions</Filter>
+    </ClInclude>
+    <ClInclude Include="Parsing\Expressions\Interfaces\IBinaryExpressionNode.h">
+      <Filter>Header Files\Parsing\Expressions\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Parsing\Expressions\Interfaces\IExpressionNode.h">
+      <Filter>Header Files\Parsing\Expressions\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Parsing\Expressions\ExpressionParser.h">
+      <Filter>Header Files\Parsing\Expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="Parsing\Expressions\Nodes\Expressions\BooleanLiteralNode.h">
+      <Filter>Header Files\Parsing\Expressions\Nodes\Expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="Parsing\Expressions\Nodes\Expressions\IdentifierNode.h">
+      <Filter>Header Files\Parsing\Expressions\Nodes\Expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="Parsing\Expressions\Nodes\Expressions\NumberLiteralNode.h">
+      <Filter>Header Files\Parsing\Expressions\Nodes\Expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="Parsing\Expressions\Nodes\Expressions\StringConcatenationNode.h">
+      <Filter>Header Files\Parsing\Expressions\Nodes\Expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="Parsing\Expressions\Nodes\Expressions\StringLiteralNode.h">
+      <Filter>Header Files\Parsing\Expressions\Nodes\Expressions</Filter>
+    </ClInclude>
+    <ClInclude Include="Parsing\Statements\Print\PrintNode.h">
+      <Filter>Header Files\Parsing\Statements\Print</Filter>
+    </ClInclude>
+    <ClInclude Include="Parsing\Statements\Print\PrintRule.h">
+      <Filter>Header Files\Parsing\Statements\Print</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
