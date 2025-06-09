@@ -1,10 +1,12 @@
-namespace WorkflowZero.Helpers.Clients;
+namespace WorkflowsTraining.Helpers.Clients;
 
 public static class ClientActions
 {
     private static IList<Client> _clientList =
     [
-        new("Idle")
+        new("Idle"),
+        new("Thales"),
+        new("ASML")
     ];
 
     public static Client Find(string name)
@@ -19,18 +21,8 @@ public static class ClientActions
         return client;
     }
 
-    
     public static IList<Client> All()
     {
         return _clientList;
-    }
-
-    public static Client Add(string name)
-    {
-        Client newClient = new (name);
-
-        _clientList.Add(newClient);
-
-        return newClient;
     }
 }

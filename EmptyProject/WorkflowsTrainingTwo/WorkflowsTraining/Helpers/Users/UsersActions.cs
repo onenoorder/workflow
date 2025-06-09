@@ -1,10 +1,10 @@
-namespace WorkflowZero.Helpers.Users;
+namespace WorkflowsTraining.Helpers.Users;
 
 public static class UsersActions
 {
     private static IList<User> _usersList =
     [
-        new("Gerard" , "Kroes", 31),
+        new("Gerhard" , "Kroes", 31),
         new("Martijn","Lankhof", 25),
         new("Alice","Johnson", 28),
         new("Bob","Smith", 35),
@@ -43,19 +43,5 @@ public static class UsersActions
     public static IList<User> All()
     {
         return _usersList;
-    }
-
-    public static User Add(string name, string surname, int age)
-    {
-        User newUser = new (name, surname, age);
-
-        _usersList.Add(newUser);
-
-        return newUser;
-    }
-
-    public static string GetInitial(User user)
-    {
-        return user.Name[0].ToString();
     }
 }

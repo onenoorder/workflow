@@ -1,0 +1,21 @@
+print("Hello there again!")
+
+print()
+
+print("Loop two times and print wow:")
+loop 2
+	print("wow")
+endloop
+
+print()
+
+print("Show all users:")
+loop Users.All() currentUser
+    print(currentUser.Name ~ " " ~ currentUser.Surname)
+endloop
+
+print()
+print("Show all clients:")
+loop Clients.All() currentClient
+    print(currentClient.Name)
+endloop
