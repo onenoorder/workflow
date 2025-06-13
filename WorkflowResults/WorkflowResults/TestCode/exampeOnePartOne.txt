@@ -1,0 +1,15 @@
+testValue = "12345TEST"
+print(testValue)
+
+testValue = "test"
+print(testValue)
+
+testValue = 10 + 2
+print(testValue)
+
+if testValue > 13
+then
+print("larger then 13")
+else
+print("not larger then 13")
+endif

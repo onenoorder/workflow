@@ -1,0 +1,52 @@
+newUser = Users.Add("Alice", "Bobbinson", 34) 
+print(newUser.Name)
+
+print("Older then 30:")
+loop Users.All() currentUser
+    if currentUser.Age > 30
+    then
+        print(currentUser)
+    endif
+endloop
+
+loop Users.All() currentUser
+    currentUser.Name = currentUser.Name ~ "je"
+endloop
+
+loop Users.All() currentUser
+    currentUser.Age = currentUser.Age / 2
+endloop
+
+loop Users.All() currentUser
+    print(currentUser)
+endloop
+
+
+loop Users.All() currentUser
+    if currentUser.Age > 12
+    then 
+        currentUser.Role = "BM"
+    else
+        currentUser.Role = "Consultant"
+    endif
+endloop
+
+
+loop Users.All() currentUser
+    if currentUser.Role equals "BM"
+    then 
+        print(currentUser)
+    endif
+endloop
+
+idle = Clients.Find("Idle")
+funOtherClient = Clients.Add("FunClient")
+loop Users.All() currentUser
+    if currentUser.Age < 12
+    then 
+        currentUser.Client = idle 
+    else
+        currentUser.Client = funOtherClient 
+    endif
+    print(currentUser)
+endloop

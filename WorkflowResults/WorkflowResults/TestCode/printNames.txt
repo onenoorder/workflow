@@ -1,0 +1,11 @@
+loop Users.All() currentUser
+    print(currentUser.Name ~ " " ~ currentUser.Surname)
+endloop
+
+loop Users.All() currentUser
+    print(currentUser.Surname ~ ", " ~ currentUser.Name)
+endloop
+
+loop Users.All() currentUser
+    print(Users.GetInitial(currentUser) ~ ". " ~ currentUser.Surname)
+endloop
